@@ -1,0 +1,9 @@
+
+# Downloaded/Generated, user specific
+debian
+pxelinux.0
+
+# make these yourself
+pxelinux.cfg
+boot.txt
+config.txt
