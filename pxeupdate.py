@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 #Author: slango20
 #Description: PXE Netboot Repository tree updater
-#Takes options as arrays set in the file (TODO: set up arguments)
+#Takes options as arrays set in the file
+#TODO: set up arguments
 #TODO: Add support for non-debian based repository trees (can arch netboot?)
 #TODO: find a better way to download files
 #TODO: add per-file progress bar without bloated wget UI
 #TODO: Make Modular (add classes for common distros to eliminate the looped distro-specific handling)
-#TODO: figure out way to gedit file on VM without installing X
 #TODO: threading
 #TODO: make core more generic
+#TODO: Add configuration generator
 
 import os
 
