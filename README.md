@@ -1,5 +1,5 @@
 # pxescript
-PXE server autoconfiguration and setup script
+PXE server autoconfiguration and setup script  
 Requires packages such as pxelinux and tftpd to be installed already.
 
 ## Usage
