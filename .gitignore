@@ -2,6 +2,7 @@
 # Downloaded/Generated, user specific
 debian
 pxelinux.0
+special
 
 # make these yourself
 pxelinux.cfg

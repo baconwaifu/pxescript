@@ -13,6 +13,8 @@
 
 import os
 
+#added to special download strings to suppress wget output
+suppress = " >/dev/null 2>&1"
 #amd64 and i386 are the most common
 architectures = ["amd64", "i386"]
 #Distribution of linux goes here, currently can only handle debian-based
@@ -21,7 +23,7 @@ dists = ["debian"]
 rels = ["jessie", "sid"]
 #Files to get from the repository, must be populated
 targets = ["linux", "initrd.gz"]
-#Special targets in a wget string
+#Special targets in a wget string, need to make a class
 special = ["http://archive.ubuntu.com/ubuntu/dists/trusty/main/uefi/grub2-amd64/current/grubnetx64.efi.signed -O special/grub/amd64/grubnetx64.efi.signed"]
 
 for dist in dists:
@@ -41,4 +43,4 @@ for dist in dists:
                     installer=arch+"-installer"
                 os.system("wget "+archive+dist+"/dists/" + rel + "/main/"+installer+"/current/images/netboot/"+dist+"-installer/"+arch+"/"+target+" -O "+outfile+" >/dev/null 2>&1")
 for i in special:
-    os.system("wget "+i)
+    os.system("wget "+i+suppress)
