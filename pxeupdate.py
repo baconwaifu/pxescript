@@ -28,6 +28,7 @@ for dist in dists:
         for arch in architectures:
             for target in targets:
                 outdir = dist+"/"+rel+"/"+arch+"/"
+                installer=dist+"-installer" #default, ubuntu changes it
                 if not os.path.exists(outdir):
                     os.makedirs(outdir)
                 outfile = outdir+target
