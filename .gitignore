@@ -1,10 +1,13 @@
 
 # Downloaded/Generated, user specific
 debian
+ubuntu
 pxelinux.0
 special
+default
 
 # make these yourself
 pxelinux.cfg
 boot.txt
 config.txt
+
