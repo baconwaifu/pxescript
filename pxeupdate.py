@@ -18,6 +18,8 @@ import sys
 
 #added to special download strings to suppress wget output
 suppress = " >/dev/null 2>&1"
+if not os.path.exists("pxelinux.cfg")
+    os.makedirs("pxelinux.cfg")
 try:
     with open('config.json', 'r') as conf:
         config = json.load(conf)
@@ -65,7 +67,7 @@ for dist in dists:
 for spec in config['special']:
     os.system("wget "+config['special'][spec]['archive'][0]+config['special'][spec]['targets'][0]+" -O "+config['special'][spec]['paths'][0]+suppress) #Account for array
 print("Generating Configuration File...")
-conffile = open("default", "w")
+conffile = open("pxelinux.cfg/default", "w")
 conffile.write("default menu.c32\nmenu title PXE Boot System\ntimeout 32\n\n")
 dists = config['distributions']
 for dist in dists:
