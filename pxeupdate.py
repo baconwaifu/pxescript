@@ -18,7 +18,7 @@ import sys
 
 #added to special download strings to suppress wget output
 suppress = " >/dev/null 2>&1"
-if not os.path.exists("pxelinux.cfg")
+if not os.path.exists("pxelinux.cfg"):
     os.makedirs("pxelinux.cfg")
 try:
     with open('config.json', 'r') as conf:
