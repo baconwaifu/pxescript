@@ -17,7 +17,7 @@ import os
 import sys
 
 #added to special download strings to suppress wget output
-suppress = " >/dev/null 2>&1"
+suppress = " -N >/dev/null 2>&1" #add -N to all wget so it will be smart about re-fetching remote objects
 if not os.path.exists("pxelinux.cfg"):
     os.makedirs("pxelinux.cfg")
 try:
@@ -46,7 +46,7 @@ except FileNotFoundError:
  #TODO low: make fancier
         with open('config.json', 'w') as conf:
             json.dump(config, conf, indent=4)
-#print(config)
+#print(config) #debug bits
 #exit(0)
 dists = config['distributions']
 for dist in dists:
@@ -63,7 +63,7 @@ for dist in dists:
                 outfile = outdir+target
                 print("Downloading "+target+" to "+outfile)
                 archive= config['distributions'][dist]['archive']
-                os.system("wget "+archive+dist+"/dists/" + rel + "/main/"+installer+"/current/images/netboot/"+dist+"-installer/"+arch+"/"+target+" -O "+outfile+" >/dev/null 2>&1")
+                os.system("wget "+archive+dist+"/dists/" + rel + "/main/"+installer+"/current/images/netboot/"+dist+"-installer/"+arch+"/"+target+" -O "+outfile+suppress)
 for spec in config['special']:
     os.system("wget "+config['special'][spec]['archive'][0]+config['special'][spec]['targets'][0]+" -O "+config['special'][spec]['paths'][0]+suppress) #Account for array
 print("Generating Configuration File...")
