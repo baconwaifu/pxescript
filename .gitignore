@@ -1,13 +1,14 @@
 
-# Downloaded/Generated, user specific
+# Downloaded/Generated, user specific but adding usual cases.
 debian
 ubuntu
 pxelinux.0
 special
 default
+kali
 
 # make these yourself
 pxelinux.cfg
 boot.txt
-config.txt
+config.json
 
