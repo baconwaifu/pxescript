@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-#Author: slango20
+#Author: リン
 #Description: PXE Netboot Repository tree updater
+#License: DPMWTFYWT (Do Pretty Much Whatever The Fuck You Want To), details in LICENSE file
 #Takes options as arrays set in the file
 #distributions{} contains several instances of objects containing values such as the distribution, selected architectures, and selected releases for an APT repository
 #special{} allows you to target absolute file paths for downloads, but is much the same as distribuitions{}
