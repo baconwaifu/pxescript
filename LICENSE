@@ -1,13 +1,60 @@
 Copyright 2016 手塚リン (Tezuka Rin), Alias
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Licensed under the "Do Pretty Much Whatever The Fuck You Want To" License
+ (Hereby referred to as "License" or "The License")
 
-    http://www.apache.org/licenses/LICENSE-2.0
+ Everyone is permitted to copy and distribute verbatim or modified 
+ copies of this license document, and changing it is allowed as long 
+ as the name is changed. 
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION, AND MODIFICATON
+
+ Everyone is permitted to copy and distribute duplicate or modified
+ copies of this Software, and modification is allowed and encouraged as
+ long as the name is changed from the original. You must reditribute the Software under
+ either this License, or Version 3 or greater of the GNU General Public License. (GPL)
+ 
+ Under no circumstances is any entity allowed to request payment for an unmodified
+ copy of this software, except when solely covering the cost of physical distribution media.
+
+ All copies released under this license must come with a copy of this license file,
+ and all copies released under the GNU GPL must instead include a copy of the relevant  license.
+ This license ceases to apply to a derivative if it is released under the GPU GPL.
+
+ A program may be released in solely binary form under this license without being compelled
+ to release the source or give up monetization. No End User License Agreements that modify
+ what the end user can do with this software can be attached to the software other than this
+ license text.
+
+ Software that uses this program as a "library" of functions, or otherwise runs or includes this program
+ is not subject to the terms of this license unless it's primary purpose is to expose the functions of this
+ program in a different way, or simply execute this program.
+
+ Every right not explicitly mentioned in this document is granted in full to the users of this software
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under this License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+
+Informal version:
+ you CAN copy and modify this license document when attaching it to your own project or software
+ you CAN distribute this software in it's unmodified form under this license
+ you CAN distribute a modified version of this software as long as you change the name
+ you CANNOT distribute a modified version of this software under the original name
+ you CANNOT monetize or otherwise request payment for an unmodified copy of the software
+ UNLESS you are solely covering the cost of physical media including, but not limitied to: CDs, DVDs, or USB flash drives.
+ you MUST release any derivatives under either this license, or GNU GPLv3 or higher
+ EXECPT the "manditory name change" clause may be ommited from the license *of the derivative* if you so wish
+ you MUST distribute the aplicable license document whith every copy of the software.
+ you CANNOT attach additional EULAs to software released under this license
+ UNLESS they do not change what you can do to the software under this license, such as a service EULA for the download host
+
+ Software CAN use this program as a library without being subject to this license
+ UNLESS the primary purpose is to either run or use solely this program.
+ Example that IS affected: a program that is solely a "wrapper" for this program or it's functions. (eg: GNU tools that are simply wrappers for stdlib)
+ Example that is NOT affected: a program that has independent function from this program that simply uses this program to reduce
+ the volume of code the program contains (eg: a "web browser" using a "unix time to mm-dd-yyyy" library that is under this license)
+
+ A DERIVATIVE is allowed to remove the "manditory name change" clause if the creator so wishes
+ ALTHOUGH the derivative cannot restrict further derivatives' licenses from containing the clause

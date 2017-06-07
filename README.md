@@ -1,14 +1,13 @@
 # pxescript
 PXE server autoconfiguration and setup script  
-Requires packages such as pxelinux and tftpd to be installed already.
+Requires a working tftpd and existing pxelinux.0 and support files.  
+Note that this places all of the files into what becomes the root of the TFTP server.
 
 ## Usage
-change the variables in the pxeupdate.py to match your configuration. (subject to change fairly quickly)  
-Example image tree output: `debian/jessie/amd64/linux`
+change config.json (automatically created at first run) to match your configuration.  
+Example kernel output: `debian/jessie/amd64/linux`
 
 ##TODO
 * Support arguments  
-* Use Classes to manage different distros (similar to debootstrap scripts)  
-* Use seperate config file (probably XML or JSON)  
 * Threaded Downloads  
-* Actually add pxelinux.cfg and boot.txt generation  
+* Better handling of non-debian distros such as arch (or even grub)  

@@ -2,10 +2,11 @@
 # Downloaded/Generated, user specific but adding usual cases.
 debian
 ubuntu
-pxelinux.0
 special
+pxelinux.0 #is pretty much required, may update the script to nab the debian one if needed (probe DHCP to find if specified file exists?)
 default
 kali
+*.c32 #support files for pxelinux/syslinux
 
 # make these yourself
 pxelinux.cfg
