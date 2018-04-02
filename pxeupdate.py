@@ -18,8 +18,40 @@ import json
 import os
 import sys
 
-#added to special download strings to suppress wget output
-suppress = " -N >/dev/null 2>&1" #add -N to all wget so it will be smart about re-fetching remote objects
+def query_yes_no(question, default="yes"):
+#    """Ask a yes/no question via raw_input() and return their answer.
+#
+#    "question" is a string that is presented to the user.
+#    "default" is the presumed answer if the user just hits <Enter>.
+#        It must be "yes" (the default), "no" or None (meaning
+#        an answer is required of the user).
+#
+#    The "answer" return value is True for "yes" or False for "no".
+#    """
+    valid = {"yes": True, "y": True, "ye": True,
+             "no": False, "n": False}
+    if default is None:
+        prompt = " [y/n] "
+    elif default == "yes":
+        prompt = " [Y/n] "
+    elif default == "no":
+        prompt = " [y/N] "
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
+
+    while True:
+        sys.stdout.write(question + prompt)
+        choice = input().lower()
+        if default is not None and choice == '':
+            return valid[default]
+        elif choice in valid:
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' "
+                             "(or 'y' or 'n').\n")
+
+#added to special strings to suppress wget output. yes, this is using wget from a language that has native http downloaders.
+suppress = " -N >/dev/null 2>&1" #add -N so wget will be smarter about re-fetching remote objects
 if not os.path.exists("pxelinux.cfg"):
     os.makedirs("pxelinux.cfg")
 
@@ -33,10 +65,10 @@ except json.decoder.JSONDecodeError as e:
 except FileNotFoundError:
     #set sane defaults if config not found, prompt to create config with them.
     print("Config file not found, should I create one with defaults?")
-    if (query_yes_no("") == true ):
-        config = {'distributions': {'ubuntu': {'targets': ['initrd.gz', 'linux'], 'architectures': ['amd64', 'i386'], 'append': '', 'archive': 'http://archive.ubuntu.com/', 'releases': ['trusty','xenial']}, 'debian': {'targets': ['initrd.gz', 'linux'], 'architectures': ['amd64', 'i386'], 'append': '', 'archive': 'ftp://ftp.us.debian.org/', 'releases': ['jessie', 'sid']}}, 'special': {'grub': {'targets': ['ubuntu/dists/trusty/main/uefi/grub2-amd64/current/grubnetx64.efi.signed'], 'architectures': ['amd64'], 'readable': 'Grub EFI Netloader', 'archive': 'http://archive.ubuntu.com/', 'lable': 'grub_efi_amd64', 'paths': ['special/grub/amd64/grubnetx64.efi.signed'], 'append': ''}}}
+    if (query_yes_no("") == True ):
+        config = {'distributions': {'ubuntu': {'targets': ['initrd.gz', 'linux'], 'architectures': ['amd64', 'i386'], 'append': '', 'archive': 'http://archive.ubuntu.com/', 'releases': ['trusty','xenial']}, 'debian': {'targets': ['initrd.gz', 'linux'], 'architectures': ['amd64', 'i386'], 'append': '', 'archive': 'ftp://ftp.us.debian.org/', 'releases': ['stretch', 'buster', 'sid']}}, 'special': {'grub': {'targets': ['ubuntu/dists/trusty/main/uefi/grub2-amd64/current/grubnetx64.efi.signed'], 'architectures': ['amd64'], 'readable': 'Grub EFI Netloader', 'archive': 'http://archive.ubuntu.com/', 'lable': 'grub_efi_amd64', 'paths': ['special/grub/amd64/grubnetx64.efi.signed'], 'append': ''}}}
         with open('config.json', 'w') as conf:
-            json.dump(config, conf, indent=4)
+            json.dump(config, conf, indent=4) #makes an actual human-readable file this way.
 
 
 #Start the actual script
@@ -73,7 +105,7 @@ for dist in dists:
 for spec in config['special']:
     print("Adding "+config['special'][spec]['lable']+"...")
     conffile.write("label "+config['special'][spec]['lable']+"\n    menu lable "+config['special'][spec]['readable']+"\n    kernel "+config['special'][spec]['paths'][0]+"\n    append "+config['special'][spec]['append']) 
-print("Adding additional bootmenu directives to the end..."
+print("Adding additional bootmenu directives to the end...")
 conffile.write(config['append']) # MAYBE: fill with anonymous string[]s for organization?
 conffile.close() #technically uneeded unless this is being called directly into another python script
 # Example generated entry:
@@ -83,34 +115,3 @@ conffile.close() #technically uneeded unless this is being called directly into 
 #     append initrd=debian/jessie/amd64/initrd.img
 
 
-def query_yes_no(question, default="yes"):
-#    """Ask a yes/no question via raw_input() and return their answer.
-#
-#    "question" is a string that is presented to the user.
-#    "default" is the presumed answer if the user just hits <Enter>.
-#        It must be "yes" (the default), "no" or None (meaning
-#        an answer is required of the user).
-#
-#    The "answer" return value is True for "yes" or False for "no".
-#    """
-    valid = {"yes": True, "y": True, "ye": True,
-             "no": False, "n": False}
-    if default is None:
-        prompt = " [y/n] "
-    elif default == "yes":
-        prompt = " [Y/n] "
-    elif default == "no":
-        prompt = " [y/N] "
-    else:
-        raise ValueError("invalid default answer: '%s'" % default)
-
-    while True:
-        sys.stdout.write(question + prompt)
-        choice = raw_input().lower()
-        if default is not None and choice == '':
-            return valid[default]
-        elif choice in valid:
-            return valid[choice]
-        else:
-            sys.stdout.write("Please respond with 'yes' or 'no' "
-                             "(or 'y' or 'n').\n")
