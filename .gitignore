@@ -12,4 +12,4 @@ kali
 pxelinux.cfg
 boot.txt
 config.json
-
+grub
