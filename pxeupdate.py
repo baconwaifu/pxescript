@@ -10,8 +10,8 @@
 #TODO: set up arguments
 #TODO: Add better support for non-debian based repository trees. 
 #TODO: Use format string-like thing to determine order from config
-#TODO: find a better way to download files that will skip if no changes (similar to rsync)
-#TODO low: add per-file progress bar without bloated wget UI
+#DONE: find a better way to download files that will skip if no changes (similar to rsync)
+#TODO low: add per-file progress bar without bloated curl UI
 #TODO low: multithreaded downloading (only across multiple mirrors, no more than one connection per mirror)
 
 import json
@@ -50,8 +50,11 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-#added to special strings to suppress wget output. yes, this is using wget from a language that has native http downloaders.
-suppress = " -N >/dev/null 2>&1" #add -N so wget will be smarter about re-fetching remote objects
+
+#added to special strings to suppress curl output. yes, this is using curl from a language that has native http downloaders.
+#suppress = ""
+suppress = " >/dev/null 2>&1" 
+
 if not os.path.exists("pxelinux.cfg"):
     os.makedirs("pxelinux.cfg")
 
@@ -87,10 +90,10 @@ for dist in dists:
                 outfile = outdir+target
                 print("Downloading "+target+" to "+outfile)
                 archive= config['distributions'][dist]['archive']
-                os.system("wget "+archive+dist+"/dists/" + rel + "/main/"+installer+"/current/images/netboot/"+dist+"-installer/"+arch+"/"+target+" -O "+outfile+suppress)
+                os.system(f"curl -z '{outfile}' "+archive+dist+"/dists/" + rel + "/main/"+installer+"/current/images/netboot/"+dist+"-installer/"+arch+"/"+target+" -o "+outfile+suppress)
 for spec in config['special']:
     os.system("wget "+config['special'][spec]['archive'][0]+config['special'][spec]['targets'][0]+" -O "+config['special'][spec]['paths'][0]+suppress)
-print("Generating Configuration File...")
+print("Generating pxelinux Configuration File...")
 conffile = open("pxelinux.cfg/default", "w")
 conffile.write("default menu.c32\nmenu title PXE Boot System\ntimeout 32\n\n")
 dists = config['distributions']
@@ -113,5 +116,22 @@ conffile.close() #technically uneeded unless this is being called directly into 
 #     menu label debian jessie amd64
 #     kernel debian/jessie/amd64/linux
 #     append initrd=debian/jessie/amd64/initrd.img
+print("Generating grub-efi config file...")
+conffile = open("grub/pxegrub.cfg", 'w')
+conffile.write("# AUTOMATICALLY GENERATED FILE, DO NOT EDIT\n")
+for dist in dists:
+    rels = config['distributions'][dist]['releases']
+    for rel in rels:
+      architectures = config['distributions'][dist]['architectures']
+      for arch in architectures:
+        print(f"Adding '{dist} {rel} {arch}'...")
+        conffile.write(f"menuentry '{dist} {rel} {arch}' "+"{\n  gfxmode $linux_gfx_mode\n")
+        append = config['distributions'][dist]['append'] # kernel cmdline
+        conffile.write(f"  linux {dist}/{rel}/{arch}/linux {append}\n")
+        conffile.write(f"  initrd {dist}/{rel}/{arch}/initrd.gz"+"\n}\n\n")
+# menuentry '[distro] [rel] [arch]' {
+# linux {dist}/{rel}/{arch}/linux
+# initrd {dist}/{rel}/{arch}/initrd.gz {append}
+# }
 
 
